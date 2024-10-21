@@ -1,0 +1,10 @@
+server:
+  port: 9292
+
+spring:
+  application:
+    name: RequestSolver
+  datasource:
+    url: jdbc:tc:postgresql:12.10:///test_database
+    username: test
+    password: test
