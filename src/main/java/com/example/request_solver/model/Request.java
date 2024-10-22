@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -27,7 +28,7 @@ public class Request extends BaseEntity {
     @Size(min = 10, max = 128)
     private String description;
 
-
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
 
