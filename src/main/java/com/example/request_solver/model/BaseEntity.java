@@ -1,21 +1,23 @@
 package com.example.request_solver.model;
 
 import com.example.request_solver.HasId;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.proxy.HibernateProxy;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.proxy.HibernateProxy;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -28,12 +30,16 @@ import java.time.LocalDateTime;
 public class BaseEntity implements HasId {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
+    @SequenceGenerator(name = "seqGen", sequenceName = "global_sequence", allocationSize = 1)
     protected Integer id;
 
     @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     protected LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "modified_at", insertable = false)
     protected LocalDateTime modifiedAt;
 
     @Version
