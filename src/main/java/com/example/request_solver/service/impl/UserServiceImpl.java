@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.example.request_solver.util.ValidationUtil.checkNotFoundWithId;
 import static com.example.request_solver.util.ValidationUtil.checkNotFoundWithName;
 
 @Service
@@ -22,6 +23,27 @@ import static com.example.request_solver.util.ValidationUtil.checkNotFoundWithNa
 public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    public User get(int id) {
+        return checkNotFoundWithId(userRepository.findById(id).orElse(null), id);
+    }
+
+    @Override
+    public User getByName(String username) {
+        return checkNotFoundWithName(userRepository.findByUsernameContaining(username), username);
+    }
+
+    @Override
+    @Transactional
+    public void setOperatorRole(int id) {
+        User user = userRepository.findById(id).orElse(null);
+        user.getRoles().add(Role.OPERATOR);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
