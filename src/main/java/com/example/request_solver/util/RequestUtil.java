@@ -2,6 +2,7 @@ package com.example.request_solver.util;
 
 import com.example.request_solver.exception.IllegalRequestData;
 import com.example.request_solver.model.Request;
+import com.example.request_solver.to.RequestCreationTo;
 import com.example.request_solver.to.RequestTo;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,10 @@ import java.util.stream.Collectors;
 public class RequestUtil {
     public static RequestTo asTo(Request request) {
         return new RequestTo(request.getId(), request.getCreatedAt().toLocalDate(), request.getTitle(), request.getDescription(), request.getStatus());
+    }
+
+    public static RequestTo asTo(RequestCreationTo request) {
+        return new RequestTo(request.getTitle(), request.getDescription());
     }
 
     public static List<RequestTo> asTos(List<Request> requests) {

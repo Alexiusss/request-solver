@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestTo implements HasId {
-    
+
     Integer id;
 
     LocalDate createdAt;
@@ -30,4 +30,9 @@ public class RequestTo implements HasId {
 
     @NotNull
     Status status;
+
+    public RequestTo(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }
