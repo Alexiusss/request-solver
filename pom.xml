@@ -21,6 +21,7 @@
 		<java.version>11</java.version>
 		<sping.dotenv.version>4.0.0</sping.dotenv.version>
 		<testconteiners.version>1.20.0</testconteiners.version>
+		<springdoc.openapi.version>1.8.0</springdoc.openapi.version>
 	</properties>
 
 	<dependencies>
@@ -44,7 +45,6 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -60,6 +60,12 @@
 			<artifactId>spring-dotenv</artifactId>
 			<version>${sping.dotenv.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.openapi.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
