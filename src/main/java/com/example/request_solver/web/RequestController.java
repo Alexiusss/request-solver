@@ -72,7 +72,7 @@ public class RequestController {
                                               @RequestParam(defaultValue = "ASC") String direction) {
         Pageable pageable = createPageable(page, size, direction);
         Page<Request> requestPage = service.getAllUnconsideredPageable(pageable);
-        List<RequestTo> requestTos = RequestUtil.asTos(requestPage.getContent());
+        List<RequestTo> requestTos = RequestUtil.asTosForOperator(requestPage.getContent());
         return new PageImpl<>(requestTos, pageable, requestPage.getTotalElements());
     }
 
@@ -85,7 +85,7 @@ public class RequestController {
                                                @RequestParam(defaultValue = "ASC") String direction) {
         Pageable pageable = createPageable(page, size, direction);
         Page<Request> requestPage = service.getAllUnconsideredPageableByUsername(userName, pageable);
-        List<RequestTo> requestTos = RequestUtil.asTos(requestPage.getContent());
+        List<RequestTo> requestTos = RequestUtil.asTosForOperator(requestPage.getContent());
         return new PageImpl<>(requestTos, pageable, requestPage.getTotalElements());
     }
 

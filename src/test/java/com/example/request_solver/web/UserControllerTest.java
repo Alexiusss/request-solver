@@ -10,7 +10,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.example.request_solver.util.UserTestData.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,7 +24,6 @@ class UserControllerTest extends AbstractControllerTest {
     @WithMockUser(roles = {"ADMIN"})
     void getAllUsers() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL))
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(USER_LIST)))
                 .andExpect(status().isOk());
@@ -35,7 +33,6 @@ class UserControllerTest extends AbstractControllerTest {
     @WithMockUser(roles = {"ADMIN"})
     void getByName() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "/" + USER_NAME + "/name"))
-                .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(USER_TO)))
                 .andExpect(status().isOk());

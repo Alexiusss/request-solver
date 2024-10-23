@@ -28,6 +28,25 @@ public class RequestUtil {
                 .collect(Collectors.toList());
     }
 
+    public static List<RequestTo> asTosForOperator(List<Request> requests) {
+        return requests.stream()
+                .map(RequestUtil::asTo)
+                .map(RequestUtil::formatTextForOperator)
+                .collect(Collectors.toList());
+    }
+
+    private static RequestTo formatTextForOperator(RequestTo requestTo) {
+        String formattedTitle = formatString(requestTo.getTitle());
+        String formattedDescription = formatString(requestTo.getDescription());
+        requestTo.setTitle(formattedTitle);
+        requestTo.setDescription(formattedDescription);
+        return requestTo;
+    }
+
+    static String formatString(String value) {
+        return String.join("-", value.split("")).replaceAll(" ", "");
+    }
+
     public static Pageable createPageable(int page, int size, String direction) {
         try {
             return PageRequest.of(page, size, Sort.Direction.valueOf(direction.toUpperCase()), "createdAt");

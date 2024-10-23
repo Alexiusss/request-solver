@@ -6,10 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import lombok.experimental.UtilityClass;
-
-
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.example.request_solver.util.RequestUtil.formatString;
 
 @UtilityClass
 public class RequestTestData {
@@ -22,6 +22,7 @@ public class RequestTestData {
     public static final List<RequestTo> USER_REQUESTS = List.of(FIRST_REQUEST, SECOND_REQUEST, THIRD_REQUEST, FOURTH_REQUEST);
     public static final RequestTo NEW_REQUEST = new RequestTo(null, LocalDate.now(), "New request", "New request description", Status.DRAFT);
     public static final RequestTo UPDATED_FIRST_REQUEST = new RequestTo(FIRST_REQUEST_ID, LocalDate.now(), "Updated request", "Updated request description", Status.DRAFT);
+    public static final RequestTo FORMATTED_SECOND_REQUEST = new RequestTo(SECOND_REQUEST_ID, LocalDate.now(), formatString(SECOND_REQUEST.getTitle()), formatString(SECOND_REQUEST.getDescription()), Status.SENT);
 
     public static <T> T asParsedJson(ObjectMapper objectMapper, Object obj) throws JsonProcessingException {
         String json = objectMapper.writeValueAsString(obj);

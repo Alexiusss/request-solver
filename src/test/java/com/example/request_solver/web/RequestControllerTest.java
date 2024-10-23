@@ -32,7 +32,6 @@ class RequestControllerTest extends AbstractControllerTest {
     void getAllForAuthUser() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "/user")
                 .param("direction", "DESC"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content", equalTo(asParsedJson(objectMapper, USER_REQUESTS))));
@@ -76,7 +75,6 @@ class RequestControllerTest extends AbstractControllerTest {
     @WithUserDetails
     void submit() throws Exception {
         perform(MockMvcRequestBuilders.patch(REST_URL + "/" + FIRST_REQUEST_ID + "/submit"))
-                .andDo(print())
                 .andExpect(status().isNoContent());
 
         RequestTo requestFromDB = asTo(repository.getExisted(FIRST_REQUEST_ID));
@@ -88,10 +86,9 @@ class RequestControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = "operator")
     void getAllUnconsidered() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "/unconsidered"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.content", equalTo(asParsedJson(objectMapper, List.of(SECOND_REQUEST)))));
+                .andExpect(jsonPath("$.content", equalTo(asParsedJson(objectMapper, List.of(FORMATTED_SECOND_REQUEST)))));
     }
 
     @Test
@@ -99,10 +96,9 @@ class RequestControllerTest extends AbstractControllerTest {
     void getAllUnconsideredByUsername() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "/unconsidered/" + USER.getUsername() + "/username")
                 .param("direction", "DESC"))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.content", equalTo(asParsedJson(objectMapper, List.of(SECOND_REQUEST)))));
+                .andExpect(jsonPath("$.content", equalTo(asParsedJson(objectMapper, List.of(FORMATTED_SECOND_REQUEST)))));
     }
 
     @Test
